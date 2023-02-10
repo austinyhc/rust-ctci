@@ -1,0 +1,7 @@
+[package]
+name = "rust_ctci"
+version = "0.1.0"
+authors = ["Austin Chen <austin.yhc@gmail.com>"]
+edition = "2021"
+
+[dependencies]
