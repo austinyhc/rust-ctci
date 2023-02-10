@@ -60,16 +60,18 @@ pub fn check_permutation(s0: &str, s1: &str) -> bool {
     true
 }
 
-// pub fn urlify(s: &str, true_length: u32) -> &str {
-//     let original_len = s.len();
-//     let mut num_of_space = 0;
-//
-//     for c in s.chars() {
-//         if c == ' ' { num_of_space += 1; }
-//     }
-//     let extended_len = original_len + 2*num_of_space;
-//     dbg!(extended_len);
-// }
+#[allow(unused_variables)]
+pub fn urlify(s: String, true_length: u32) -> String {
+    // let original_len = s.len();
+    // let mut num_of_space = 0;
+    //
+    // for c in s.chars() {
+    //     if c == ' ' { num_of_space += 1; }
+    // }
+    // let extended_len = original_len + 2*num_of_space;
+
+    String::new()
+}
 
 
 pub fn palindrome_permutation(s: &str) -> bool {
@@ -120,18 +122,45 @@ pub fn string_compression(s: String) -> String {
     result[2..].to_string()
 }
 
+fn matrix_to_string(matrix: &Vec<Vec<i32>>) -> String {
+	matrix.iter().fold(format!(""), |a, r| {
+		a + &r.iter().fold(format!(""), |b, e| b + "\t" + &e.to_string()) + "\n"
+	})
+}
+
+fn swap(a: &mut i32, b: &mut i32) {
+    *a ^= *b;
+    *b ^= *a;
+    *a ^= *b;
+}
+
+pub fn transpose_matrix(matrix: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+
+    // for i in 0..matrix.len() {
+    //     for j in 0..matrix[0].len() {
+    //         swap(matrix[i][j].as_ref(), matrix[j][i].as_ref());
+    //         // dbg!(matrix[i][j]);
+    //     }
+    // }
+    //
+    // println!("{}", matrix_to_string(&matrix));
+    Vec::new()
+}
+
+#[allow(unused_variables)]
 pub fn rotate_matrix(matrix: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
-    matrix
+    Vec::new()
 }
 
+#[allow(unused_variables)]
 pub fn zero_matrix(matrix: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
-    matrix
+    Vec::new()
 }
 
-pub fn string_rotation(s: &str) -> &str {
-    s
+#[allow(unused_variables)]
+pub fn string_rotation(s: String) -> String {
+    String::new()
 }
-
 
 
 #[cfg(test)]
@@ -151,13 +180,12 @@ mod tests {
         assert_eq!(true, check_permutation("aple", "leap"));
     }
 
-    // #[test]
-    // fn test_urlify() {
-    //     assert_eq!("Austin%20Chen", urlify("Austin Chen"));
-    //     assert_eq!(urlify("Mr John Smith    ", 13), "Mr%20John%20Smith");
-    //     assert_eq!(urlify("Mr John Smith       ", 14), "Mr%20John%20Smith%20");
-    //     assert_eq!(urlify_reverse("Mr John Smith    ", 13), "Mr%20John%20Smith");
-    // }
+    #[test]
+    fn test_urlify() {
+        assert_eq!(format!("Austin%20Chen"), urlify(format!("Austin Chen     "), 11));
+        assert_eq!(format!("Mr%20John%20Smith"), urlify(format!("Mr John Smith    "), 13));
+        assert_eq!(format!("Mr%20John%20Smith%20"), urlify(format!("Mr John Smith       "), 14));
+    }
 
     #[test]
     fn test_palindrome_permutation() {
@@ -175,5 +203,19 @@ mod tests {
         assert_eq!("a2b1c5a3", string_compression(format!("aabcccccaaa")));
         assert_eq!("abcdefg", string_compression(format!("abcdefg")));
         assert_eq!("abcccc", string_compression(format!("abcccc")));
+    }
+
+    #[test]
+    fn test_transpose_matrix() {
+        assert_eq!(vec![vec![1,1,1], vec![2,0,1], vec![0,0,1]],
+                   transpose_matrix(vec![vec![1,2,0], vec![1,0,0], vec![1,1,1]]));
+    }
+
+    #[test]
+    fn test_zero_matix() {
+        assert_eq!(vec![vec![0,0,0], vec![0,0,0], vec![1,0,0]],
+                   zero_matrix(vec![vec![1,2,0], vec![1,0,0], vec![1,1,1]]));
+        assert_eq!(vec![vec![1,0,3,4], vec![0,0,0,0], vec![1,0,3,4]],
+                   zero_matrix(vec![vec![1,2,3,4], vec![1,0,3,4], vec![1,2,3,4]]));
     }
 }
