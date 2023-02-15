@@ -1,31 +1,39 @@
 
 pub fn urlify(s: String, true_length: u32) -> String {
 
-    s.rsplit
-    let mut s_arr = s.as_bytes();
-    let mut num_of_space = 0;
+    let bytes = s.into_bytes();
+
+    let mut num_of_space = 0u32;
 
     for i in 0..true_length {
-        if s_arr[i as usize] == b' ' { num_of_space += 1; }
-    }
-
-    let ext_length = true_length + 2*num_of_space;
-    let result_vec = Vec::with_capacity(ext_length as usize);
-    let mut i = true_length - 1;
-    let mut j = extended_length - 1;
-
-    while j > 0 {
-        if s_arr[j as usize] == b' ' {
-
-
-        } else {
-            result_vec[j] = s_arr[i];
-            i -= 1;
+        if bytes[i as usize] == b' ' {
+            num_of_space += 1;
         }
-        j -= 1;
     }
 
-    String::from_utf8(result_vec).unwrap()
+    let extended_length = true_length + 2 * num_of_space;
+    let mut results = vec![0 ;extended_length as usize];
+    let mut i: i32 = (true_length - 1) as i32;
+    let mut j: i32 = (extended_length - 1) as i32;
+
+    while i >= 0 {
+        if bytes[i as usize] == b' ' {
+            results[j as usize] = b'0';
+            results[(j-1) as usize] = b'2';
+            results[(j-2) as usize] = b'%';
+            j -= 3; 
+        } else {
+            results[j as usize] = bytes[i as usize];
+            j -= 1;
+        }
+        i -= 1;
+    }
+
+    let results = match String::from_utf8(results) {
+        Ok(v) => v,
+        Err(e) => panic!("Invalid utf-8 sequence: {}", e),
+    };
+    results
 }
 
 #[cfg(test)]
