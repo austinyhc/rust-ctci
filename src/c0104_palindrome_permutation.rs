@@ -1,11 +1,3 @@
-use std::collections::HashMap;
-
-fn convert_ascii_to_u8(c: &char) -> Option<u8> {
-    if c.is_ascii() {
-        return Some(*c as u8);
-    }
-    None
-}
 
 pub fn palindrome_permutation(s: &str) -> bool {
 
@@ -32,7 +24,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_palindrome_permutation() {
+    fn test() {
         assert_eq!(true, palindrome_permutation("Tact Coa"));
         assert_eq!(true, palindrome_permutation("taco cat"));
         assert_eq!(true, palindrome_permutation("atco cta"));
